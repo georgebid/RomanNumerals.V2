@@ -7,7 +7,7 @@ namespace RomanNumerals.V2
         static void Main(string[] args)
         {
             Convertor convertor = new Convertor();
-            Console.WriteLine("Please enter a roman numeral: ");
+            Console.WriteLine("Please enter a roman numeral or a number: ");
             string usersNumeral = Console.ReadLine().ToUpper();
             Console.WriteLine(Convertor.Convert(usersNumeral));
         }
