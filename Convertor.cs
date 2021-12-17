@@ -18,6 +18,8 @@ namespace RomanNumerals.V2
                 case 'X': numeralValue = 10; break;
                 case 'L': numeralValue = 50; break;
                 case 'C': numeralValue = 100; break;
+                case 'D': numeralValue = 500; break;
+                case 'M': numeralValue = 1000; break;
                 default: numeralValue = 0; break;
             }
             return numeralValue;
@@ -58,27 +60,7 @@ namespace RomanNumerals.V2
                     }
                 }
             }
-            
             return result;
         }
-        // below doesnt work.
-        // The idea is that it would check for invalid numeral, create error score and if the error score is 0 > then the convert method doesnt run.
-        /*
-        public static int Validation(char[] romanNum)
-        {
-           
-            if (romanNum.Length > 4)
-            {
-                if (romanNum[0] == romanNum[1] && romanNum[0] == romanNum[2] && romanNum[0] == romanNum[3])
-                {
-                    bool invalidNumeral = true;
-                   if (invalidNumeral == true;
-                     {
-
-                    } 
-                }
-            }
-            return 0;
-        */ 
     }
 }

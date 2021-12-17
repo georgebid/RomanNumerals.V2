@@ -18,7 +18,7 @@ namespace RomanNumerals.V2
         {
 
             bool result = true;
-            string validNumerals = @"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
+            string validNumerals = @"\bM{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\b";
             Regex rg = new Regex(validNumerals, RegexOptions.IgnoreCase);
 
             if (rg.IsMatch(_numeral))
@@ -31,6 +31,6 @@ namespace RomanNumerals.V2
             return result;
         }
         // validation to run before anything else happens
-
+        // the regex also contains 
     }
 }
