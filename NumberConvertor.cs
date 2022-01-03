@@ -60,7 +60,9 @@ namespace RomanNumerals.V2
                     }
                 }
             Validation resultValidation = new Validation(newNumeral);
+
             bool result = resultValidation.ValidationCheck();
+            // if the number isn't and edge case 
             if (result == true)
             {
                 return newNumeral;
@@ -77,12 +79,14 @@ namespace RomanNumerals.V2
 
             PowerOfTen powerOfTen = new PowerOfTen();
 
+            // for each value in romanNums values, check if the value is less than or greater than the usersNumber.
             foreach (int value in romanNums.Values)
             {
                 if (value > usersNumber)
                 {
                     aboveValue = value;
                 }
+                // if the value is below the usersNumber then check if its a power of 10. if its not, then repeat, when a power of 10 is reached - break out of the loop.
                 if (value < usersNumber)
                 {
                     belowValue = value;
@@ -94,16 +98,20 @@ namespace RomanNumerals.V2
                    }
                 }
             }
+            // find the difference between the above value and the usersNumber. if the difference is less than or equal to the below value
+            // then display the result. 
             string fallbackResult = "";
             int difference = aboveValue - usersNumber;
-            Console.WriteLine(difference);
-            Console.WriteLine(belowValue);
-            Console.WriteLine(aboveValue);
+
             if (difference <= belowValue)
             {
+                // finding the key for the value in the dictionary.
+                // so for 9, it returns I(the key for 1) and X(the key for 10).
                 fallbackResult = $"{romanNums.FirstOrDefault(x => x.Value == belowValue).Key}{romanNums.FirstOrDefault(x => x.Value == aboveValue).Key}";
             }
             return fallbackResult;
         }
+        // this is currently too generalised - it doesn't work for 29 - because the rule only works for simplier number, e.g. when there are only two numerals - Above and Below.
+        // 29 should be XXIX, we should take the 20 and pass only the 9 to this function.
     }
 }
