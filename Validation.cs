@@ -40,13 +40,14 @@ namespace RomanNumerals.V2
         {
             bool resultNum = true;
 
-            if (_number < 3999)
-            {
-                resultNum = true;
-            } else
-            {
-                resultNum = false;
-            }
+                if (_number < 3999)
+                {
+                    resultNum = true;
+                }
+                else
+                {
+                    resultNum = false;
+                }
             return resultNum;
         }
         // validation to run before anything else happens

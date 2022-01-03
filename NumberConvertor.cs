@@ -30,7 +30,7 @@ namespace RomanNumerals.V2
         {
             // validation to check if the number can be converted to a valid numeral
             Validation validation = new Validation(number);
-
+            int originalUserInput = number;
             if (!validation.ValidationCheckNumber())
             {
                 return "This is not a valid numeral.";
@@ -45,8 +45,6 @@ namespace RomanNumerals.V2
                     foreach (int d in romanNums.Values)
                     {
                         // number is printed here to show the loop working.
-                        Console.WriteLine(number);
-                        Console.WriteLine(d);
                         // the loop runs through every value to check if it goes into our current number, and if it does it will be subtracted.
                         if (number - d >= 0)
                         {
@@ -61,7 +59,51 @@ namespace RomanNumerals.V2
                         }
                     }
                 }
+            Validation resultValidation = new Validation(newNumeral);
+            bool result = resultValidation.ValidationCheck();
+            if (result == true)
+            {
                 return newNumeral;
+            } else
+            {
+                return FallbackConversion(originalUserInput);
+            }
+        }
+
+        public string FallbackConversion(int usersNumber)
+        {
+            int aboveValue = 0;
+            int belowValue = 0;
+
+            PowerOfTen powerOfTen = new PowerOfTen();
+
+            foreach (int value in romanNums.Values)
+            {
+                if (value > usersNumber)
+                {
+                    aboveValue = value;
+                }
+                if (value < usersNumber)
+                {
+                    belowValue = value;
+                    
+                   if (powerOfTen.IsValuePowerOfTen(belowValue))
+                   {
+                        Console.WriteLine("If here");
+                      break;
+                   }
+                }
+            }
+            string fallbackResult = "";
+            int difference = aboveValue - usersNumber;
+            Console.WriteLine(difference);
+            Console.WriteLine(belowValue);
+            Console.WriteLine(aboveValue);
+            if (difference <= belowValue)
+            {
+                fallbackResult = $"{romanNums.FirstOrDefault(x => x.Value == belowValue).Key}{romanNums.FirstOrDefault(x => x.Value == aboveValue).Key}";
+            }
+            return fallbackResult;
         }
     }
 }
