@@ -8,7 +8,6 @@ namespace RomanNumerals.V2
     {
         public bool IsValuePowerOfTen(int value)
         {
-            Console.WriteLine("value here is" + value);
             return IsValuePowerOfX(10, value);
         }
 

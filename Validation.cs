@@ -22,8 +22,8 @@ namespace RomanNumerals.V2
         public bool ValidationCheck()
         {
             bool result = true;
-            //This regex doesn't work:  string validNumerals = @"\bM{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\b";
             string validNumerals = @"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
+            // the regex also contains info to determine whether a certain amount of letters in groups is valid. Which rules out the need for any extra validation.
             Regex rg = new Regex(validNumerals, RegexOptions.IgnoreCase);
 
             if (rg.IsMatch(_numeral))
@@ -40,7 +40,7 @@ namespace RomanNumerals.V2
         {
             bool resultNum = true;
 
-                if (_number < 3999)
+                if (_number <= 3999)
                 {
                     resultNum = true;
                 }
@@ -51,6 +51,5 @@ namespace RomanNumerals.V2
             return resultNum;
         }
         // validation to run before anything else happens
-        // the regex also contains info to determine 
     }
 }

@@ -40,12 +40,9 @@ namespace RomanNumerals.V2
                 return 0;
             }
                 int result = 0;
+            // loop through for however many times there is a element in the array, keeping track of where it is in the array.
             for (int i = 0; i < romanNum.Length; i++)
-            
             {
-                // checks if the array is valid
-               // int isValidIndex = Array.IndexOf(validNumerals, romanNum[i]);
-
                 {
                     int value = CalculateValue(romanNum[i]);
                     result = result + value;
