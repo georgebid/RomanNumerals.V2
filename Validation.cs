@@ -40,7 +40,7 @@ namespace RomanNumerals.V2
         {
             bool resultNum = true;
 
-                if (_number <= 3999)
+                if (_number < 4000)
                 {
                     resultNum = true;
                 }

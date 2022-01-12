@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RomanNumerals.V2
 {
-    class PowerOfTen
+    internal class PowerOfTen
     {
         public bool IsValuePowerOfTen(int value)
         {

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RomanNumerals.V2
 {
-    class NumberConvertor
+    public class NumberConvertor
     {
         // Dictionary is from the collections library.
         private Dictionary<string, int> romanNums = new Dictionary<string, int>();
@@ -33,7 +33,7 @@ namespace RomanNumerals.V2
 
             if (!validation.ValidationCheckNumber())
             {
-                return "This number cannot be converted to a roman numeral.";
+                return "invalid.";
             }
 
             string newNumeral = "";
