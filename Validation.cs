@@ -18,7 +18,7 @@ namespace RomanNumerals.V2
         {
             _number = number;
         }
-       
+
         public bool ValidationCheck()
         {
             bool result = true;
@@ -29,7 +29,8 @@ namespace RomanNumerals.V2
             if (rg.IsMatch(_numeral))
             {
                 result = true;
-            } else
+            }
+            else
             {
                 result = false;
             }
@@ -40,14 +41,14 @@ namespace RomanNumerals.V2
         {
             bool resultNum = true;
 
-                if (_number < 4000)
-                {
-                    resultNum = true;
-                }
-                else
-                {
-                    resultNum = false;
-                }
+            if (_number < 4000)
+            {
+                resultNum = true;
+            }
+            else
+            {
+                resultNum = false;
+            }
             return resultNum;
         }
         // validation to run before anything else happens

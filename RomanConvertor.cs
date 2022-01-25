@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace RomanNumerals.V2
 {
-    public class Convertor
+    public class RomanConvertor : IConvertor
     {
         // instance of a convertor rather than static.
         public int CalculateValue(char numeral)
@@ -24,12 +24,13 @@ namespace RomanNumerals.V2
             }
             return numeralValue;
         }
-        public int Convert(string numerals)
+        public string ConvertInput(string input)
             // an array is needed because we need to seperate the numerals in order to add them together.
         {
-            Validation validation = new Validation(numerals);
+
+            Validation validation = new Validation((string)input);
             char[] romanNum;
-            romanNum = numerals.ToCharArray();
+            romanNum = input.ToCharArray();
             // regex or strings could be used instead of a array, remove letters which aren't valid - from a string.
 
             // for loop that creates a value to product a result for each numeral entered.
@@ -37,7 +38,7 @@ namespace RomanNumerals.V2
             if (!validation.ValidationCheck())
             {
                 Console.WriteLine("That is not a valid numeral");
-                return 0;
+                return "0";
             }
                 int result = 0;
             // loop through for however many times there is a element in the array, keeping track of where it is in the array.
@@ -45,19 +46,25 @@ namespace RomanNumerals.V2
             {
                 {
                     int value = CalculateValue(romanNum[i]);
-                    result = result + value;
+                    result += value;
                     if (i > 0)
                     {
                         int previousValue = CalculateValue(romanNum[i - 1]);
 
                         if (previousValue < value)
                         {
-                            result = result - previousValue * 2;
+                            // this is to account for the wrongly added amount to the previous value.
+                            result -= previousValue * 2;
                         }
                     }
                 }
             }
-            return result;
+            return result.ToString();
         }
+
+       // public object ConvertInput(object input)
+    //    {
+      //      throw new NotImplementedException();
+     ///   }
     }
 }

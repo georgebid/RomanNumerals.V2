@@ -6,36 +6,19 @@ namespace RomanNumerals.V2
     {
         static void Main(string[] args)
         {
-            NumberConvertor numberConvertor = new NumberConvertor();
-            Convertor convertor = new Convertor();
-            SplitNumbers splitNumbers = new SplitNumbers();
-            
-
             Console.WriteLine("Please enter a roman numeral or a number: ");
-            
+
             string usersInput = Console.ReadLine().ToUpper();
+
             Console.WriteLine($"You entered {usersInput}");
 
+            ConvertorFactory convertorFactory = new ConvertorFactory();
 
-            if (Int32.TryParse(usersInput, out int usersInputAsInt))
-            {
-                Validation validation = new Validation(usersInputAsInt);
+            IConvertor convertor = convertorFactory.GetConvertor(usersInput);
 
+            string result = convertor.ConvertInput(usersInput);
 
-                if (validation.ValidationCheckNumber())
-                {
-                    string numeral = splitNumbers.Split(usersInput);
-                    Console.WriteLine(numeral);
-                }
-                else
-                {
-                    Console.WriteLine("That number cannot be converted.");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"Your numeral converted to a number is: {convertor.Convert(usersInput)}");
-            }
+            Console.WriteLine(value: $"Your numeral converted to a number is: {result}");
         }
     }
 }

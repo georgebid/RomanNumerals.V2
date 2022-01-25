@@ -7,12 +7,12 @@ using System.Text;
 
 namespace RomanNumerals.V2
 {
-    public class NumberConvertor
+    public class NumberConvertor : IConvertor
     {
         // Dictionary is from the collections library.
         private Dictionary<string, int> romanNums = new Dictionary<string, int>();
 
-        // Adds the roman numerals to the dictionary as it is a way to store a numeral and its value, as it allows a look up to see what each number represents.
+        // Adds the roman numerals to the dictionary in the constructor, as it is a way to store a numeral and its value, as it allows a look up to see what each number represents.
         //changed Dictionary from a method to setting up the dictionary in the constructor body, ruling out the need for the Dictionary() method. 
         public NumberConvertor()
         {
@@ -24,12 +24,31 @@ namespace RomanNumerals.V2
             romanNums.Add("V", 5);
             romanNums.Add("I", 1);
         }
-        // returns a string, takes an int (users number)
-        public string ConvertToNumeral(int usersNumber)
+        public string ConvertInput(string usersInput)
         {
-            int copyOfEnteredNumber = usersNumber;
+            // converting the users input to a char array and assigning it to the split numbers char array.
+            char[] splitNumbers;
+            splitNumbers = usersInput.ToCharArray();
+            int multiplier = 1;
+            string convertedNumeral = "";
+
+            for (int i = splitNumbers.Length - 1; i >= 0; i--)
+            {
+                int splitNumber = int.Parse(splitNumbers[i].ToString());
+                splitNumber = splitNumber * multiplier;
+                multiplier = multiplier * 10;
+                // pre-pending the converted numeral to the current conversion, so far. 
+                convertedNumeral = ConvertElement(splitNumber) + convertedNumeral;
+            }
+            return $"Your numeral is {convertedNumeral}";
+        }
+            // returns a string, takes an int (users number)
+            public string ConvertElement(int input)
+        // an array is needed because we need to seperate the numerals in order to add them together.
+        {
+            int copyOfEnteredNumber = input;
             // validation to check if the number can be converted to a valid numeral
-            Validation validation = new Validation(usersNumber);
+            Validation validation = new Validation(input);
 
             if (!validation.ValidationCheckNumber())
             {
@@ -39,24 +58,20 @@ namespace RomanNumerals.V2
             string newNumeral = "";
             // This loop will continuously run whilst subtracting from the number, until 0 is reached - subtracting the biggest roman numeral each time until its converted.
 
-            while (usersNumber > 0)
+            while (input > 0)
             {
-                // if diffence between users number and the numeral above is a power of ten, we need to break out of this loop as we know it will create somethiung invalid
+                // this is looping through the values in the dictionary.
                 foreach (int value in romanNums.Values)
                 {
-                    // number is printed here to show the loop working.
                     // the loop runs through every value to check if it goes into our current number, and if it does it will be subtracted.
-                    if (usersNumber - value >= 0)
+                    if (input - value >= 0)
                     {
-                        // google first or default
-                        // this is looping through the roman numerals and checking if the value is equal to value, then getting the key of that pair.
+                        //Getting the key of that pair (which is the numeral).
                         string letter = romanNums.First(pair => pair.Value == value).Key;
-                       // string letter = romanNums.FirstOrDefault(pair => pair.Value == value).Key;
                         // concatenating each letter to the string
-                        newNumeral = newNumeral + letter;
+                        newNumeral += letter;
                         // essentially a running count - so it only converts what is there, taking away whats been converted. 12 - 10.
-                        usersNumber = usersNumber - value;
-
+                        input -= value;
                         break;
                     }
                 }
@@ -71,48 +86,48 @@ namespace RomanNumerals.V2
             }
             else
             {
-                return FallbackConversion(copyOfEnteredNumber);
+                return EdgeCaseConversion(copyOfEnteredNumber);
             }
         }
-        public string FallbackConversion(int usersNumber)
-        {
-            int aboveValue = 0;
-            int belowValue = 0;
-
-            PowerOfTen powerOfTen = new PowerOfTen();
-
-            // for each value in romanNums values, check if the value is less than or greater than the usersNumber.
-            foreach (int value in romanNums.Values)
+             string EdgeCaseConversion(int usersNumber)
             {
-                if (value > usersNumber)
-                {
-                    aboveValue = value;
-                }
+                int aboveValue = 0;
+                int belowValue = 0;
 
-                if (value < usersNumber)
-                {
-                    belowValue = value;
+                PowerOfTen powerOfTen = new PowerOfTen();
 
-                    if (powerOfTen.IsValuePowerOfTen(belowValue))
+                // for each value in romanNums values, check if the value is less than or greater than the
+                foreach (int value in romanNums.Values)
+                {
+                    if (value > usersNumber)
                     {
-                        break;
+                        aboveValue = value;
+                    }
+
+                    if (value < usersNumber)
+                    {
+                        belowValue = value;
+                        // if diffence between users number and the numeral above is a power of ten, we need to break out of this loop as we know it will create somethiung invalid
+                        if (powerOfTen.IsValuePowerOfTen(belowValue))
+                        {
+                            break;
+                        }
                     }
                 }
-            }
-            
-            // find the difference between the above value and the usersNumber. if the difference is less than or equal to the below value
-            // then display the result. 
-            string fallbackResult = "";
-            int difference = aboveValue - usersNumber;
 
-            if (difference <= belowValue)
-            {
-                // finding the key for the value in the dictionary.
-                // so for 9, it returns I(the key for 1) and X(the key for 10).
-                //fallbackResult = $"{romanNums.FirstOrDefault(x => x.Value == belowValue).Key}{romanNums.FirstOrDefault(x => x.Value == aboveValue).Key}";
-                fallbackResult = $"{romanNums.First(x => x.Value == belowValue).Key}{romanNums.First(x => x.Value == aboveValue).Key}";
+                // find the difference between the above value and the. if the difference is less than or equal to the below value
+                // then display the result. 
+                string edgeCaseResult = "";
+                int difference = aboveValue - usersNumber;
+
+                if (difference <= belowValue)
+                {
+                    // finding the key for the value in the dictionary.
+                    // so for 9, it returns I(the key for 1) and X(the key for 10).
+                    edgeCaseResult = $"{romanNums.First(x => x.Value == belowValue).Key}{romanNums.First(x => x.Value == aboveValue).Key}";
+                }
+                return edgeCaseResult;
             }
-            return fallbackResult;
-        }
     }
 }
+
