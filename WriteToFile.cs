@@ -6,8 +6,11 @@ using System.IO;
 
 namespace RomanNumerals.V2
 {
-    internal class ReadAndWrite
+    internal class WriteToFile
     {
+        private List<string> _EnteredInputs;
+        private string _PreviouslyEnteredInput;
+
        public List<string> EnteredInputs { get; set; }
        public string PreviouslyEnteredInput { get; set; }
     }

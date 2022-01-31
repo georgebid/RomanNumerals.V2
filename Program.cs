@@ -26,16 +26,38 @@ namespace RomanNumerals.V2
             string filePath = @"C:\Users\Georgina.Bidder\.vscode\textFile.txt";
 
 
-    // Below is WIP.
+            // Below is WIP.
 
-          ReadAndWrite values = new ReadAndWrite();
+            WriteToFile values = new WriteToFile();
 
-          List<string> lines = File.ReadAllLines(filePath).ToList();
+            List<string> lines = File.ReadAllLines(filePath).ToList();
 
-          values.EnteredInputs = lines;
+            values.EnteredInputs = lines;
 
-            //foreach (var line in lines)
+            values.EnteredInputs.Add(usersInput);
+
+            List<string> output = new List<string>();
+
+
+            foreach (var value in values.EnteredInputs)
+            {
+                output.Add($"{value}");
+            }
+
+            if (lines.Count > 30)
+            {
+                output.RemoveAt(0);
+            }
+
+            File.WriteAllLines(filePath, output);
+
+           
+
+            //foreach (string outputs in output)
             //{
+            //    Console.WriteLine($"{values.EnteredInput} {output.PreviouslyEnteredInput}");
+            //}
+
             //    string[] entries = line.Split(',');
 
             //    ReadAndWrite readAndWrite = new ReadAndWrite();
@@ -51,19 +73,6 @@ namespace RomanNumerals.V2
             //{
             //    Console.WriteLine($"{value.EnteredInput} {value.PreviouslyEnteredInput}");
             //}
-            
-
-            values.EnteredInputs.Add(usersInput);
-
-            List<string> output = new List<string>();
-
-            
-            foreach (var value in values.EnteredInputs)
-            {
-                output.Add($"{value}");
-            }
-
-            File.WriteAllLines(filePath, output);
         }
     }
 }
