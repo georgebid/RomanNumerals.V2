@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanNumerals.V2", "RomanNumerals.V2.csproj", "{5AA6A177-D047-4EC2-AAF1-277EE0ABCC8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RomanNumerals.V2", "RomanNumerals.V2.csproj", "{5AA6A177-D047-4EC2-AAF1-277EE0ABCC8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
