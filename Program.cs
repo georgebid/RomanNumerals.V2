@@ -17,41 +17,55 @@ namespace RomanNumerals.V2
 
             ConvertorFactory convertorFactory = new ConvertorFactory();
 
+            ReadAndWriteToFile readAndWriteToFile = new ReadAndWriteToFile();
+
             IConvertor convertor = convertorFactory.GetConvertor(usersInput);
 
             string result = convertor.ConvertInput(usersInput);
 
             Console.WriteLine(value: $"Your numeral converted to a number is: {result}");
 
-            string filePath = @"C:\Users\Georgina.Bidder\.vscode\textFile.txt";
+            string newResult = result;
+
+            Console.WriteLine("\nAll entered roman numerals or numbers: ");
+
+            readAndWriteToFile.WriteUsersInput(usersInput);
+
+            Console.WriteLine("\nAll converted numeral or numbers: ");
+
+            readAndWriteToFile.WriteUsersResult(newResult);
 
 
-            // Below is WIP.
-
-            WriteToFile values = new WriteToFile();
-
-            List<string> lines = File.ReadAllLines(filePath).ToList();
-
-            values.EnteredInputs = lines;
-
-            values.EnteredInputs.Add(usersInput);
-
-            List<string> output = new List<string>();
+            //string filePath = @"C:\Users\Georgina.Bidder\.vscode\textFile.txt";
 
 
-            foreach (var value in values.EnteredInputs)
-            {
-                output.Add($"{value}");
-            }
+            //// Below is WIP.
 
-            if (lines.Count > 30)
-            {
-                output.RemoveAt(0);
-            }
+            //WriteToFile values = new WriteToFile();
 
-            File.WriteAllLines(filePath, output);
+            //List<string> lines = File.ReadAllLines(filePath).ToList();
 
-           
+            //values.EnteredInputs = lines;
+
+            //values.EnteredInputs.Add(usersInput);
+
+            //List<string> output = new List<string>();
+
+
+            //foreach (var value in values.EnteredInputs)
+            //{
+            //    output.Add($"{value}");
+            //    Console.WriteLine($"{value}");
+            //}
+
+            //if (lines.Count > 30)
+            //{
+            //    output.RemoveAt(0);
+            //}
+
+            //File.WriteAllLines(filePath, output);
+
+
 
             //foreach (string outputs in output)
             //{

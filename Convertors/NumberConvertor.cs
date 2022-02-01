@@ -40,7 +40,7 @@ namespace RomanNumerals.V2
                 // pre-pending the converted numeral to the current conversion, so far. 
                 convertedNumeral = ConvertElement(splitNumber) + convertedNumeral;
             }
-            return $"Your numeral is {convertedNumeral}";
+            return convertedNumeral;
         }
             // returns a string, takes an int (users number)
             public string ConvertElement(int input)

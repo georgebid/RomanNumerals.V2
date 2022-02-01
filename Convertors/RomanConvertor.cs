@@ -28,7 +28,7 @@ namespace RomanNumerals.V2
             // an array is needed because we need to seperate the numerals in order to add them together.
         {
 
-            Validation validation = new Validation((string)input);
+            Validation validation = new Validation(input);
             char[] romanNum;
             romanNum = input.ToCharArray();
             // regex or strings could be used instead of a array, remove letters which aren't valid - from a string.
