@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace RomanNumerals.V2
 {
     public class RomanConvertor : IConvertor
     {
-        // instance of a convertor rather than static.
         public int CalculateValue(char numeral)
         {
             int numeralValue;
@@ -24,13 +20,13 @@ namespace RomanNumerals.V2
             }
             return numeralValue;
         }
-        public string ConvertInput(string input)
+        public void ConvertInput(NumeralConversion input)
             // an array is needed because we need to seperate the numerals in order to add them together.
         {
 
-            Validation validation = new Validation(input);
+            Validation validation = new Validation(input.OldValue);
             char[] romanNum;
-            romanNum = input.ToCharArray();
+            romanNum = input.OldValue.ToCharArray();
             // regex or strings could be used instead of a array, remove letters which aren't valid - from a string.
 
             // for loop that creates a value to product a result for each numeral entered.
@@ -38,7 +34,7 @@ namespace RomanNumerals.V2
             if (!validation.ValidationCheck())
             {
                 Console.WriteLine("That is not a valid numeral");
-                return "0";
+               // return "0";
             }
                 int result = 0;
             // loop through for however many times there is a element in the array, keeping track of where it is in the array.
@@ -59,12 +55,7 @@ namespace RomanNumerals.V2
                     }
                 }
             }
-            return result.ToString();
+            input.NewValue = result.ToString();
         }
-
-       // public object ConvertInput(object input)
-    //    {
-      //      throw new NotImplementedException();
-     ///   }
     }
 }

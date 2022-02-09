@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace RomanNumerals.V2
 {
@@ -13,80 +10,27 @@ namespace RomanNumerals.V2
 
             string usersInput = Console.ReadLine().ToUpper();
 
+            NumeralConversion numeralConversion = new NumeralConversion();
+
+            numeralConversion.OldValue = usersInput;
+
             Console.WriteLine($"You entered {usersInput}");
 
             ConvertorFactory convertorFactory = new ConvertorFactory();
 
-            ReadAndWriteToFile readAndWriteToFile = new ReadAndWriteToFile();
+           // ReadAndWriteToFile readAndWriteToFile = new ReadAndWriteToFile();
 
             IConvertor convertor = convertorFactory.GetConvertor(usersInput);
 
-            string result = convertor.ConvertInput(usersInput);
+            convertor.ConvertInput(numeralConversion);
 
-            Console.WriteLine(value: $"Your numeral converted to a number is: {result}");
+            DataStore resultWriter = new DataStore();
 
-            string newResult = result;
+            Console.WriteLine(value: $"Your numeral converted to a number is: {numeralConversion.NewValue}");
 
-            Console.WriteLine("\nAll entered roman numerals or numbers: ");
+            Console.WriteLine("\nPrevious entries and conversions: ");
 
-            readAndWriteToFile.WriteUsersInput(usersInput);
-
-            Console.WriteLine("\nAll converted numeral or numbers: ");
-
-            readAndWriteToFile.WriteUsersResult(newResult);
-
-
-            //string filePath = @"C:\Users\Georgina.Bidder\.vscode\textFile.txt";
-
-
-            //// Below is WIP.
-
-            //WriteToFile values = new WriteToFile();
-
-            //List<string> lines = File.ReadAllLines(filePath).ToList();
-
-            //values.EnteredInputs = lines;
-
-            //values.EnteredInputs.Add(usersInput);
-
-            //List<string> output = new List<string>();
-
-
-            //foreach (var value in values.EnteredInputs)
-            //{
-            //    output.Add($"{value}");
-            //    Console.WriteLine($"{value}");
-            //}
-
-            //if (lines.Count > 30)
-            //{
-            //    output.RemoveAt(0);
-            //}
-
-            //File.WriteAllLines(filePath, output);
-
-
-
-            //foreach (string outputs in output)
-            //{
-            //    Console.WriteLine($"{values.EnteredInput} {output.PreviouslyEnteredInput}");
-            //}
-
-            //    string[] entries = line.Split(',');
-
-            //    ReadAndWrite readAndWrite = new ReadAndWrite();
-
-            //    readAndWrite.EnteredInput = entries[0];
-
-            //    readAndWrite.PreviouslyEnteredInput = entries[1];
-
-            //    values.Add(readAndWrite);
-            //}
-
-            //foreach (var value in values)
-            //{
-            //    Console.WriteLine($"{value.EnteredInput} {value.PreviouslyEnteredInput}");
-            //}
+            resultWriter.Write(numeralConversion);
         }
     }
 }

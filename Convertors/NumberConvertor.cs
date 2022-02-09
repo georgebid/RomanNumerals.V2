@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System;
 
 namespace RomanNumerals.V2
 {
@@ -24,11 +21,11 @@ namespace RomanNumerals.V2
             romanNums.Add("V", 5);
             romanNums.Add("I", 1);
         }
-        public string ConvertInput(string usersInput)
+        public void ConvertInput(NumeralConversion usersInput)
         {
-            // converting the users input to a char array and assigning it to the split numbers char array.
-            char[] splitNumbers;
-            splitNumbers = usersInput.ToCharArray();
+
+            // converting the user input to a char array and assigning it to the split numbers char array.
+            char[] splitNumbers = usersInput.OldValue.ToCharArray();
             int multiplier = 1;
             string convertedNumeral = "";
 
@@ -40,7 +37,7 @@ namespace RomanNumerals.V2
                 // pre-pending the converted numeral to the current conversion, so far. 
                 convertedNumeral = ConvertElement(splitNumber) + convertedNumeral;
             }
-            return convertedNumeral;
+            usersInput.NewValue = convertedNumeral;
         }
             // returns a string, takes an int (users number)
             public string ConvertElement(int input)
