@@ -34,9 +34,9 @@ namespace RomanNumerals.V2
                 //string numeralHistoryData = @"C:\Users\Georgina.Bidder\.vscode\textFile.csv";
                 using (var writer = new StreamWriter(numeralHistoryData))
                 {
-                    WriteData(writer, EnteredInputs.ToString());
+                    WriteData(writer, numeralHistoryData);
 
-                    foreach (var input in EnteredInputs)
+                    foreach (var input in numeralHistoryData)
                     {
                         WriteData(writer, numeralHistoryData);
                     }
