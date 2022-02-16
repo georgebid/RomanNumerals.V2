@@ -31,6 +31,7 @@ namespace RomanNumerals.V2
             Console.WriteLine("\nPrevious entries and conversions: ");
 
             resultWriter.Write(numeralConversion);
+            resultWriter.Read(numeralConversion);
         }
     }
 }
