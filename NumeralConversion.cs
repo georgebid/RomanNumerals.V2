@@ -7,7 +7,7 @@ namespace RomanNumerals.V2
     [Serializable]
     public class NumeralConversion
     {
-        public string OldValue { get; set; }
+        public string EnteredValue { get; set; }
         public string NewValue { get; set; }
 
     }

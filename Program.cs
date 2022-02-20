@@ -12,7 +12,7 @@ namespace RomanNumerals.V2
 
             NumeralConversion numeralConversion = new NumeralConversion();
 
-            numeralConversion.OldValue = usersInput;
+            numeralConversion.EnteredValue = usersInput;
 
             Console.WriteLine($"You entered {usersInput}");
 
@@ -30,8 +30,9 @@ namespace RomanNumerals.V2
 
             Console.WriteLine("\nPrevious entries and conversions: ");
 
-            resultWriter.Write(numeralConversion);
             resultWriter.Read(numeralConversion);
+            resultWriter.Write(numeralConversion);
+            
         }
     }
 }

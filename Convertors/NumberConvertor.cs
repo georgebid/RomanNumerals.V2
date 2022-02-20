@@ -25,7 +25,7 @@ namespace RomanNumerals.V2
         {
 
             // converting the user input to a char array and assigning it to the split numbers char array.
-            char[] splitNumbers = usersInput.OldValue.ToCharArray();
+            char[] splitNumbers = usersInput.EnteredValue.ToCharArray();
             int multiplier = 1;
             string convertedNumeral = "";
 

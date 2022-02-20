@@ -15,10 +15,14 @@ namespace RomanNumerals.V2
         public List<string> Results { get; set; }
 
         // private write data method.
-        private void WriteData(TextWriter writer, string result)
+        private void WriteData(TextWriter writer)
         {
-            writer.WriteLine(EnteredInputs);
-            writer.WriteLine(Results);
+            for (int i = 0; i < EnteredInputs.Count; i++)
+            {
+               // writer.WriteLine($"{numeralConversion.OldValue}, {numeralConversion.NewValue}");
+                writer.WriteLine($"{EnteredInputs.ElementAt(i)},{Results.ElementAt(i)}");
+            }  
+
         }
         string numeralHistoryData = @"C:\Users\Georgina.Bidder\.vscode\textFile.csv";
         // write to the file.
@@ -31,16 +35,16 @@ namespace RomanNumerals.V2
             }
             else
             {
+                EnteredInputs.Add(numeralConversion.EnteredValue);
+                Results.Add(numeralConversion.NewValue);
                 //string numeralHistoryData = @"C:\Users\Georgina.Bidder\.vscode\textFile.csv";
-                using (var writer = new StreamWriter(numeralHistoryData))
-                {
-                    WriteData(writer, numeralHistoryData);
-
-                    foreach (var input in numeralHistoryData)
-                    {
-                        WriteData(writer, numeralHistoryData);
-                    }
-                }
+                using var writer = new StreamWriter(numeralHistoryData);
+                WriteData(writer);
+               
+                //foreach (var input in numeralHistoryData)
+                //{
+                //    WriteData(writer, numeralConversion);
+                //}
             }
         }
 
@@ -57,17 +61,26 @@ namespace RomanNumerals.V2
             using (var reader = new StreamReader(numeralHistoryData))
             {
                     string output;
-                    var sb = new StringBuilder();
+                EnteredInputs = new List<string>();
+                Results = new List<string>();
                     while ((output = reader.ReadLine()) != null)
                     {
-                        sb.Append(output);
-                        var dataRow = sb.ToString().Split(',');
-                        if (dataRow[dataRow.Length - 1].EndsWith("</CustomData>") || dataRow[dataRow.Length - 1].EndsWith("NULL"))
+                    var stringBuilder = new StringBuilder();
+                    stringBuilder.Append(output);
+                        string[] historicData = stringBuilder.ToString().Split(',');
+                    //historicData.Append(numeralConversion.EnteredValue);
+                    ////historicData.Append(numeralConversion.NewValue);
+                    if (historicData[0] != "")
+                    {
+                        EnteredInputs.Add(historicData[0]);
+                        Results.Add(historicData[1]);
+
+                        for (int i = 0; i < EnteredInputs.Count; i++)
                         {
-                            results.Add(dataRow);
-                            sb = new StringBuilder();
+                            Console.WriteLine($"{EnteredInputs.ElementAt(i)}, {Results.ElementAt(i)}");
                         }
                     }
+                }
             }
             return results;
         }
