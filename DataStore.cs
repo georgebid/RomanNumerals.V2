@@ -15,36 +15,31 @@ namespace RomanNumerals.V2
         public List<string> Results { get; set; }
 
         // private write data method.
-        private void WriteData(TextWriter writer)
+        private void WriteData(StreamWriter writer)
         {
             for (int i = 0; i < EnteredInputs.Count; i++)
             {
-               // writer.WriteLine($"{numeralConversion.OldValue}, {numeralConversion.NewValue}");
                 writer.WriteLine($"{EnteredInputs.ElementAt(i)},{Results.ElementAt(i)}");
-            }  
-
+            } 
         }
+        // declare the file that will be written to and read from. Outside of each method so they can both access it.
         string numeralHistoryData = @"C:\Users\Georgina.Bidder\.vscode\textFile.csv";
         // write to the file.
         public void Write(NumeralConversion numeralConversion)
         {
-
+            // added to catch any edge cases. 
             if (numeralConversion == null || numeralHistoryData.Length == 0)
             {
                 Console.WriteLine("There are no records.");
             }
-            else
+            else // if the numeral conversion is valid then write the entered input and the result (taken from the numeral conversion class).
             {
                 EnteredInputs.Add(numeralConversion.EnteredValue);
                 Results.Add(numeralConversion.NewValue);
-                //string numeralHistoryData = @"C:\Users\Georgina.Bidder\.vscode\textFile.csv";
+                // initalize a new instance of the built in StreamWriter class so that we can write to the numeralHistoryData file.
                 using var writer = new StreamWriter(numeralHistoryData);
+                //the private writedata method is declared, taking the new instance of StreamWriter.
                 WriteData(writer);
-               
-                //foreach (var input in numeralHistoryData)
-                //{
-                //    WriteData(writer, numeralConversion);
-                //}
             }
         }
 
@@ -60,26 +55,36 @@ namespace RomanNumerals.V2
             }
             using (var reader = new StreamReader(numeralHistoryData))
             {
-                    string output;
+                string output;
                 EnteredInputs = new List<string>();
                 Results = new List<string>();
-                    while ((output = reader.ReadLine()) != null)
-                    {
+                while ((output = reader.ReadLine()) != null)
+                {
+                    List<string> historicData = new List<string>();
                     var stringBuilder = new StringBuilder();
                     stringBuilder.Append(output);
-                        string[] historicData = stringBuilder.ToString().Split(',');
-                    //historicData.Append(numeralConversion.EnteredValue);
-                    ////historicData.Append(numeralConversion.NewValue);
-                    if (historicData[0] != "")
+                    // temp array to hold each line as it loops
+                    string[] tempArray = stringBuilder.ToString().Split(',');
+                    foreach (string t in tempArray)
                     {
-                        EnteredInputs.Add(historicData[0]);
-                        Results.Add(historicData[1]);
-
-                        for (int i = 0; i < EnteredInputs.Count; i++)
-                        {
-                            Console.WriteLine($"{EnteredInputs.ElementAt(i)}, {Results.ElementAt(i)}");
-                        }
+                        historicData.Add(t);
                     }
+
+                    if (historicData.ElementAt(0) != "" && historicData.Count < 10)
+                    {
+                        EnteredInputs.Add(historicData.ElementAt(0));
+                        Results.Add(historicData.ElementAt(1));
+                    }
+                }
+                //the t
+                if (EnteredInputs.Count >= 4)
+                {
+                    EnteredInputs.RemoveAt(0);
+                    Results.RemoveAt(0);
+                }
+                for (int i = 0; i < EnteredInputs.Count; i++)
+                {
+                    Console.WriteLine($"{EnteredInputs.ElementAt(i)}, {Results.ElementAt(i)}");
                 }
             }
             return results;

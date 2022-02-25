@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace RomanNumerals.V2
@@ -49,6 +50,5 @@ namespace RomanNumerals.V2
             }
             return resultNum;
         }
-        // validation to run before anything else happens
-    }
+    }  
 }
